@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | FarmConnect</title>
+
+    <link rel="stylesheet" href="../../buyer.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="buyer-sidebar">
+
+        <div class="buyer-logo">
+            🌾
+            <div>
+                <strong>FarmConnect</strong>
+                <span>Buyer Portal</span>
+            </div>
+        </div>
+
+        <nav class="buyer-menu">
+
+            <a href="dashboard.html" class="buyer-menu-item">
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+            <a href="products.html" class="buyer-menu-item">
+                📦
+                <span>Browse Products</span>
+            </a>
+
+            <a href="cart.html" class="buyer-menu-item">
+                🛒
+                <span>My Cart</span>
+            </a>
+
+            <a href="checkout.html" class="buyer-menu-item active">
+                💳
+                <span>Checkout</span>
+            </a>
+
+            <a href="#" class="buyer-menu-item">
+                📋
+                <span>My Orders</span>
+            </a>
+
+            <a href="#" class="buyer-menu-item">
+                👤
+                <span>My Profile</span>
+            </a>
+
+        </nav>
+
+        <div class="buyer-logout">
+
+            <a href="../../index.html" class="buyer-menu-item">
+                🚪
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="buyer-main">
+
+        <div class="buyer-header">
+
+            <div>
+
+                <h1>Checkout</h1>
+
+                <p>
+                    Complete your delivery details and review your order.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="checkout-layout">
+
+
+            <!-- DELIVERY DETAILS -->
+
+            <section class="checkout-card">
+
+                <div class="checkout-card-header">
+
+                    <h2>📍 Delivery Information</h2>
+
+                    <p>
+                        Enter the address where you want your order delivered.
+                    </p>
+
+                </div>
+
+
+                <form id="checkoutForm">
+
+
+                    <div class="checkout-form-grid">
+
+
+                        <div class="form-group">
+
+                            <label for="fullName">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Enter phone number"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full-width">
+
+                            <label for="address">
+                                Delivery Address
+                            </label>
+
+                            <textarea
+                                id="address"
+                                placeholder="House number, street, village/town..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="city">
+                                City / District
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                placeholder="Example: Guntur"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="state">
+                                State
+                            </label>
+
+                            <input
+                                type="text"
+                                id="state"
+                                placeholder="Example: Andhra Pradesh"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="pincode">
+                                Pincode
+                            </label>
+
+                            <input
+                                type="text"
+                                id="pincode"
+                                placeholder="Enter pincode"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="checkout-actions">
+
+                        <a
+                            href="cart.html"
+                            class="checkout-back"
+                        >
+                            ← Back to Cart
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="place-order-btn"
+                        >
+                            Place Order →
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- ORDER SUMMARY -->
+
+            <section class="checkout-summary">
+
+                <h2>🛒 Order Summary</h2>
+
+                <div id="checkoutItems">
+
+                    <!-- Products will appear here -->
+
+                </div>
+
+
+                <div class="checkout-summary-line">
+
+                    <span>Subtotal</span>
+
+                    <strong id="checkoutSubtotal">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="checkout-summary-line">
+
+                    <span>Delivery</span>
+
+                    <strong id="checkoutDelivery">
+                        Free
+                    </strong>
+
+                </div>
+
+
+                <div class="checkout-total">
+
+                    <span>Total</span>
+
+                    <strong id="checkoutTotal">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../../buyer.js"></script>
+    <script src="../../checkout.js"></script>
+
+</body>
+
+</html>

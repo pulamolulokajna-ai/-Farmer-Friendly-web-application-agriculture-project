@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Cart | FarmConnect</title>
+
+    <link
+        rel="stylesheet"
+        href="../../buyer.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="buyer-sidebar">
+
+        <div class="buyer-logo">
+
+            <div class="buyer-logo-icon">
+                🌾
+            </div>
+
+            <div>
+
+                <h2>
+                    FarmConnect
+                </h2>
+
+                <span>
+                    Buyer Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="buyer-menu">
+
+            <!-- DASHBOARD -->
+
+            <a href="dashboard.html">
+
+                <span class="menu-icon">
+                    🏠
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <!-- BROWSE PRODUCTS -->
+
+            <a href="products.html">
+
+                <span class="menu-icon">
+                    📦
+                </span>
+
+                <span>
+                    Browse Products
+                </span>
+
+            </a>
+
+
+            <!-- FAVORITES -->
+
+            <a href="favorites.html">
+
+                <span class="menu-icon">
+                    ❤️
+                </span>
+
+                <span>
+                    Favorites
+                </span>
+
+            </a>
+
+
+            <!-- MY CART -->
+
+            <a
+                href="cart.html"
+                class="active"
+            >
+
+                <span class="menu-icon">
+                    🛒
+                </span>
+
+                <span>
+                    My Cart
+                </span>
+
+            </a>
+
+
+            <!-- MY ORDERS -->
+
+            <a href="buyer-orders.html">
+
+                <span class="menu-icon">
+                    📋
+                </span>
+
+                <span>
+                    My Orders
+                </span>
+
+            </a>
+
+
+            <!-- PROFILE -->
+
+            <a href="profile.html">
+
+                <span class="menu-icon">
+                    👤
+                </span>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+
+        <div class="buyer-logout">
+
+            <a
+                href="../../index.html"
+                onclick="return confirmLogout()"
+            >
+
+                <span class="menu-icon">
+                    🚪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="buyer-main">
+
+
+        <!-- HEADER -->
+
+        <header class="buyer-header">
+
+            <div>
+
+                <h1>
+                    My Cart
+                </h1>
+
+                <p>
+                    Review your selected agricultural products.
+                </p>
+
+            </div>
+
+
+            <div class="buyer-profile">
+
+                <div class="buyer-profile-icon">
+                    🛒
+                </div>
+
+                <div>
+
+                    <strong>
+                        Buyer
+                    </strong>
+
+                    <small>
+                        Customer
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= CART ================= -->
+
+        <section class="cart-layout">
+
+
+            <!-- CART ITEMS -->
+
+            <div class="cart-items-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Selected Products
+                        </h2>
+
+                        <p>
+                            Products you want to purchase.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="cartItems"
+                    class="cart-items"
+                >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SUMMARY -->
+
+            <aside class="cart-summary">
+
+                <h2>
+                    Order Summary
+                </h2>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Items
+                    </span>
+
+                    <strong id="summaryItems">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong id="summarySubtotal">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Delivery
+                    </span>
+
+                    <strong>
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-divider">
+                </div>
+
+
+                <div class="summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="summaryTotal">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="checkout-button"
+                    onclick="checkout()"
+                >
+                    Proceed to Checkout
+                </button>
+
+
+                <a
+                    href="dashboard.html#products"
+                    class="continue-shopping"
+                >
+                    ← Continue Shopping
+                </a>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= BUYER JAVASCRIPT ================= -->
+
+    <script src="../../buyer.js"></script>
+
+
+    <script>
+
+        // ==============================================
+        // LOAD CART
+        // ==============================================
+
+        function loadCartPage() {
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem("buyerCart")
+                ) || [];
+
+
+            const container =
+                document.getElementById("cartItems");
+
+
+            const summaryItems =
+                document.getElementById("summaryItems");
+
+
+            const summarySubtotal =
+                document.getElementById("summarySubtotal");
+
+
+            const summaryTotal =
+                document.getElementById("summaryTotal");
+
+
+            if (!container) {
+
+                return;
+
+            }
+
+
+            // ==========================================
+            // EMPTY CART
+            // ==========================================
+
+            if (cart.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="empty-cart">
+
+                        <div class="empty-cart-icon">
+                            🛒
+                        </div>
+
+                        <h2>
+                            Your Cart is Empty
+                        </h2>
+
+                        <p>
+                            Browse fresh products from
+                            farmers and add them to your cart.
+                        </p>
+
+                        <a
+                            href="products.html"
+                            class="empty-cart-button"
+                        >
+                            🛍️ Browse Products
+                        </a>
+
+                    </div>
+
+                `;
+
+
+                summaryItems.textContent =
+                    "0";
+
+
+                summarySubtotal.textContent =
+                    "₹0";
+
+
+                summaryTotal.textContent =
+                    "₹0";
+
+
+                return;
+
+            }
+
+
+            // ==========================================
+            // CLEAR OLD CONTENT
+            // ==========================================
+
+            container.innerHTML = "";
+
+
+            let total = 0;
+
+            let totalQuantity = 0;
+
+
+            // ==========================================
+            // DISPLAY PRODUCTS
+            // ==========================================
+
+            cart.forEach(
+                function(product, index) {
+
+                    const quantity =
+                        Number(product.quantity) || 1;
+
+
+                    const productTotal =
+                        Number(product.price) * quantity;
+
+
+                    total += productTotal;
+
+
+                    totalQuantity += quantity;
+
+
+                    const item =
+                        document.createElement("div");
+
+
+                    item.className =
+                        "cart-item";
+
+
+                    item.innerHTML = `
+
+                        <div class="cart-item-icon">
+                            ${product.emoji || "🌾"}
+                        </div>
+
+
+                        <div class="cart-item-details">
+
+                            <h3>
+                                ${product.name}
+                            </h3>
+
+
+                            <p class="cart-item-category">
+                                ${product.category || "Product"}
+                            </p>
+
+
+                            <p class="cart-item-price">
+                                ₹${product.price}
+
+                                <span>
+                                    / ${product.unit || "kg"}
+                                </span>
+                            </p>
+
+                        </div>
+
+
+                        <div class="cart-item-quantity">
+
+                            <button
+                                class="quantity-button"
+                                onclick="changeQuantity(${index}, -1)"
+                            >
+                                −
+                            </button>
+
+
+                            <span class="quantity-value">
+                                ${quantity}
+                            </span>
+
+
+                            <button
+                                class="quantity-button"
+                                onclick="changeQuantity(${index}, 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+
+                        <strong class="cart-product-total">
+                            ₹${productTotal}
+                        </strong>
+
+
+                        <button
+                            class="remove-cart-button"
+                            onclick="removeFromCart(${index})"
+                            title="Remove"
+                        >
+                            🗑️
+                        </button>
+
+                    `;
+
+
+                    container.appendChild(item);
+
+                }
+            );
+
+
+            // ==========================================
+            // UPDATE SUMMARY
+            // ==========================================
+
+            summaryItems.textContent =
+                totalQuantity;
+
+
+            summarySubtotal.textContent =
+                "₹" + total;
+
+
+            summaryTotal.textContent =
+                "₹" + total;
+
+        }
+
+
+
+        // ==============================================
+        // CHANGE QUANTITY
+        // ==============================================
+
+        function changeQuantity(
+            index,
+            change
+        ) {
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem("buyerCart")
+                ) || [];
+
+
+            if (!cart[index]) {
+
+                return;
+
+            }
+
+
+            cart[index].quantity =
+                (Number(cart[index].quantity) || 1)
+                + change;
+
+
+            if (cart[index].quantity <= 0) {
+
+                cart.splice(
+                    index,
+                    1
+                );
+
+            }
+
+
+            localStorage.setItem(
+                "buyerCart",
+                JSON.stringify(cart)
+            );
+
+
+            loadCartPage();
+
+        }
+
+
+
+        // ==============================================
+        // REMOVE FROM CART
+        // ==============================================
+
+        function removeFromCart(index) {
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem("buyerCart")
+                ) || [];
+
+
+            if (!cart[index]) {
+
+                return;
+
+            }
+
+
+            const confirmRemove =
+                confirm(
+                    `Remove "${cart[index].name}" from your cart?`
+                );
+
+
+            if (!confirmRemove) {
+
+                return;
+
+            }
+
+
+            cart.splice(
+                index,
+                1
+            );
+
+
+            localStorage.setItem(
+                "buyerCart",
+                JSON.stringify(cart)
+            );
+
+
+            loadCartPage();
+
+        }
+
+
+
+        // ==============================================
+        // CHECKOUT
+        // ==============================================
+
+        function checkout() {
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem("buyerCart")
+                ) || [];
+
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty."
+                );
+
+                return;
+
+            }
+
+
+            window.location.href =
+                "checkout.html";
+
+        }
+
+
+
+        // ==============================================
+        // LOGOUT
+        // ==============================================
+
+        function confirmLogout() {
+
+            return confirm(
+                "Are you sure you want to logout?"
+            );
+
+        }
+
+
+
+        // ==============================================
+        // START
+        // ==============================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            loadCartPage
+        );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile | FarmConnect</title>
+
+    <link
+        rel="stylesheet"
+        href="../../buyer.css"
+    >
+
+    <style>
+
+        /* ==========================================
+           PROFILE PAGE
+        ========================================== */
+
+        .profile-page {
+            padding: 30px;
+        }
+
+
+        .profile-page-header {
+            margin-bottom: 25px;
+        }
+
+
+        .profile-page-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 30px;
+        }
+
+
+        .profile-page-header p {
+            margin: 0;
+            color: #777;
+        }
+
+
+        /* ==========================================
+           PROFILE LAYOUT
+        ========================================== */
+
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+
+        /* ==========================================
+           PROFILE CARD
+        ========================================== */
+
+        .profile-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eeeeee;
+            text-align: center;
+        }
+
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px auto;
+            border-radius: 50%;
+            background: #f4f8ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+        }
+
+
+        .profile-card h2 {
+            margin: 0 0 5px 0;
+        }
+
+
+        .profile-card p {
+            margin: 0;
+            color: #777;
+        }
+
+
+        /* ==========================================
+           PROFILE FORM CARD
+        ========================================== */
+
+        .profile-form-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 28px;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eeeeee;
+        }
+
+
+        .profile-form-card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+
+        .profile-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+
+        .profile-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .profile-field.full-width {
+            grid-column: 1 / -1;
+        }
+
+
+        .profile-field label {
+            margin-bottom: 7px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+
+        .profile-field input,
+        .profile-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 13px;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+
+
+        .profile-field input:focus,
+        .profile-field textarea:focus {
+            border-color: #6c963f;
+        }
+
+
+        .profile-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+
+        /* ==========================================
+           BUTTONS
+        ========================================== */
+
+        .profile-buttons {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+
+        .save-profile-button {
+            border: none;
+            background: #5c8d35;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+
+        .save-profile-button:hover {
+            opacity: 0.9;
+        }
+
+
+        .clear-profile-button {
+            border: none;
+            background: #eeeeee;
+            color: #555;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+
+        /* ==========================================
+           MESSAGE
+        ========================================== */
+
+        .profile-message {
+            grid-column: 1 / -1;
+            display: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: #eaf6e2;
+            color: #3f7d20;
+            font-size: 14px;
+        }
+
+
+        /* ==========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media (max-width: 900px) {
+
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .profile-page {
+                padding: 20px;
+            }
+
+
+            .profile-form {
+                grid-template-columns: 1fr;
+            }
+
+
+            .profile-field.full-width {
+                grid-column: auto;
+            }
+
+
+            .profile-buttons {
+                grid-column: auto;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="buyer-sidebar">
+
+
+        <div class="buyer-logo">
+
+            <div class="buyer-logo-icon">
+                🌾
+            </div>
+
+            <div>
+
+                <h2>
+                    FarmConnect
+                </h2>
+
+                <span>
+                    Buyer Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <nav class="buyer-menu">
+
+
+            <!-- DASHBOARD -->
+
+            <a href="dashboard.html">
+
+                <span class="menu-icon">
+                    🏠
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- BROWSE PRODUCTS -->
+
+            <a href="products.html">
+
+                <span class="menu-icon">
+                    📦
+                </span>
+
+                <span>
+                    Browse Products
+                </span>
+
+            </a>
+
+
+
+            <!-- FAVORITES -->
+
+            <a href="favorites.html">
+
+                <span class="menu-icon">
+                    ❤️
+                </span>
+
+                <span>
+                    Favorites
+                </span>
+
+            </a>
+
+
+
+            <!-- CART -->
+
+            <a href="cart.html">
+
+                <span class="menu-icon">
+                    🛒
+                </span>
+
+                <span>
+                    My Cart
+                </span>
+
+            </a>
+
+
+
+            <!-- ORDERS -->
+
+            <a href="buyer-orders.html">
+
+                <span class="menu-icon">
+                    📋
+                </span>
+
+                <span>
+                    My Orders
+                </span>
+
+            </a>
+
+
+
+            <!-- PROFILE -->
+
+            <a
+                href="profile.html"
+                class="active"
+            >
+
+                <span class="menu-icon">
+                    👤
+                </span>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+        </nav>
+
+
+
+        <!-- LOGOUT -->
+
+        <div class="buyer-logout">
+
+            <a
+                href="../../index.html"
+                onclick="return confirmLogout()"
+            >
+
+                <span class="menu-icon">
+                    🚪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="buyer-main">
+
+
+        <!-- HEADER -->
+
+        <header class="buyer-header">
+
+
+            <div>
+
+                <h1>
+                    My Profile
+                </h1>
+
+                <p>
+                    Manage your FarmConnect account information.
+                </p>
+
+            </div>
+
+
+
+            <div class="buyer-profile">
+
+                <div class="buyer-profile-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong id="headerProfileName">
+                        Buyer
+                    </strong>
+
+                    <small>
+                        Customer
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- ==========================================
+             PROFILE CONTENT
+        ========================================== -->
+
+        <section class="profile-page">
+
+
+            <div class="profile-page-header">
+
+                <h1>
+                    👤 Personal Information
+                </h1>
+
+                <p>
+                    Add or update your profile details.
+                </p>
+
+            </div>
+
+
+
+            <div class="profile-layout">
+
+
+                <!-- PROFILE SUMMARY -->
+
+                <div class="profile-card">
+
+
+                    <div class="profile-avatar">
+                        👤
+                    </div>
+
+
+                    <h2 id="profileDisplayName">
+                        Buyer
+                    </h2>
+
+
+                    <p>
+                        FarmConnect Buyer
+                    </p>
+
+
+                </div>
+
+
+
+                <!-- PROFILE FORM -->
+
+                <div class="profile-form-card">
+
+
+                    <h2>
+                        Profile Details
+                    </h2>
+
+
+                    <form
+                        id="profileForm"
+                        class="profile-form"
+                    >
+
+
+                        <!-- NAME -->
+
+                        <div class="profile-field">
+
+                            <label for="profileName">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profileName"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- EMAIL -->
+
+                        <div class="profile-field">
+
+                            <label for="profileEmail">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="profileEmail"
+                                placeholder="Enter your email"
+                            >
+
+                        </div>
+
+
+
+                        <!-- PHONE -->
+
+                        <div class="profile-field">
+
+                            <label for="profilePhone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="profilePhone"
+                                placeholder="Enter your phone number"
+                            >
+
+                        </div>
+
+
+
+                        <!-- CITY -->
+
+                        <div class="profile-field">
+
+                            <label for="profileCity">
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profileCity"
+                                placeholder="Enter your city"
+                            >
+
+                        </div>
+
+
+
+                        <!-- STATE -->
+
+                        <div class="profile-field">
+
+                            <label for="profileState">
+                                State
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profileState"
+                                placeholder="Enter your state"
+                            >
+
+                        </div>
+
+
+
+                        <!-- PINCODE -->
+
+                        <div class="profile-field">
+
+                            <label for="profilePincode">
+                                Pincode
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profilePincode"
+                                placeholder="Enter your pincode"
+                            >
+
+                        </div>
+
+
+
+                        <!-- ADDRESS -->
+
+                        <div class="profile-field full-width">
+
+                            <label for="profileAddress">
+                                Address
+                            </label>
+
+                            <textarea
+                                id="profileAddress"
+                                placeholder="Enter your complete address"
+                            ></textarea>
+
+                        </div>
+
+
+
+                        <!-- MESSAGE -->
+
+                        <div
+                            id="profileMessage"
+                            class="profile-message"
+                        >
+                        </div>
+
+
+
+                        <!-- BUTTONS -->
+
+                        <div class="profile-buttons">
+
+
+                            <button
+                                type="submit"
+                                class="save-profile-button"
+                            >
+                                💾 Save Profile
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="clear-profile-button"
+                                onclick="clearProfile()"
+                            >
+                                🗑️ Clear
+                            </button>
+
+
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- PROFILE JAVASCRIPT -->
+
+    <script src="../../profile.js"></script>
+
+
+</body>
+
+</html>

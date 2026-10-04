@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Products | FarmConnect</title>
+
+    <link
+        rel="stylesheet"
+        href="../../dashboard.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            🌾
+
+            <span>
+                FarmConnect
+            </span>
+
+        </div>
+
+
+
+        <nav class="sidebar-menu">
+
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="dashboard.html"
+                class="menu-item"
+            >
+
+                🏠
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- MY PRODUCTS -->
+
+            <a
+                href="products.html"
+                class="menu-item active"
+            >
+
+                📦
+
+                <span>
+                    My Products
+                </span>
+
+            </a>
+
+
+
+            <!-- ADD PRODUCT -->
+
+            <a
+                href="add-product.html"
+                class="menu-item"
+            >
+
+                ➕
+
+                <span>
+                    Add Product
+                </span>
+
+            </a>
+
+
+
+            <!-- ORDERS -->
+
+            <a
+                href="orders.html"
+                class="menu-item"
+            >
+
+                🛒
+
+                <span>
+                    Orders
+                </span>
+
+            </a>
+
+
+
+            <!-- SALES -->
+
+            <a
+                href="sales-trends.html"
+                class="menu-item"
+            >
+
+                💰
+
+                <span>
+                    Sales
+                </span>
+
+            </a>
+
+
+
+            <!-- MARKET TRENDS -->
+
+            <a
+                href="sales-trends.html"
+                class="menu-item"
+            >
+
+                📈
+
+                <span>
+                    Market Trends
+                </span>
+
+            </a>
+
+
+
+            <!-- PROFILE -->
+
+            <a
+                href="farmer-profile.html"
+                class="menu-item"
+            >
+
+                👤
+
+                <span>
+                    Profile
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- LOGOUT -->
+
+        <div class="logout">
+
+            <a
+                href="../../index.html"
+                class="menu-item"
+                onclick="return confirmProductsLogout()"
+            >
+
+                🚪
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+
+            <div>
+
+                <h1>
+                    My Products
+                </h1>
+
+
+                <p>
+                    Manage the products you have added.
+                </p>
+
+            </div>
+
+
+
+            <a
+                href="add-product.html"
+                class="add-product-top"
+            >
+
+                ➕ Add Product
+
+            </a>
+
+
+        </header>
+
+
+
+        <!-- PRODUCT COUNT -->
+
+        <div class="product-summary">
+
+
+            <div>
+
+                <span>
+                    Total Products
+                </span>
+
+
+                <strong id="totalProducts">
+                    0
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- PRODUCTS -->
+
+        <section>
+
+
+            <div
+                id="productsContainer"
+                class="products-container"
+            >
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../../products.js"></script>
+
+
+
+    <!-- NAVIGATION -->
+
+    <script>
+
+
+        // ==========================================
+        // LOGOUT
+        // ==========================================
+
+        function confirmProductsLogout() {
+
+            return confirm(
+                "Are you sure you want to logout?"
+            );
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

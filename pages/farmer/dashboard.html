@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Farmer Dashboard | FarmConnect</title>
+
+    <link
+        rel="stylesheet"
+        href="../../dashboard.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         FARMER LOGIN CHECK
+         ========================================== -->
+
+    <script>
+
+        const farmerLoggedIn =
+            localStorage.getItem(
+                "farmConnectFarmerLoggedIn"
+            );
+
+
+        if (farmerLoggedIn !== "true") {
+
+            window.location.href =
+                "farmer-login.html";
+
+        }
+
+    </script>
+
+
+
+    <!-- ==========================================
+         SIDEBAR
+         ========================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            🌾
+
+            <span>
+                FarmConnect
+            </span>
+
+        </div>
+
+
+
+        <!-- SIDEBAR MENU -->
+
+        <nav class="sidebar-menu">
+
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="dashboard.html"
+                class="menu-item active"
+            >
+
+                🏠
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- MY PRODUCTS -->
+
+            <a
+                href="products.html"
+                class="menu-item"
+            >
+
+                📦
+
+                <span>
+                    My Products
+                </span>
+
+            </a>
+
+
+
+            <!-- ADD PRODUCT -->
+
+            <a
+                href="add-product.html"
+                class="menu-item"
+            >
+
+                ➕
+
+                <span>
+                    Add Product
+                </span>
+
+            </a>
+
+
+
+            <!-- ORDERS -->
+
+            <a
+                href="orders.html"
+                class="menu-item"
+            >
+
+                🛒
+
+                <span>
+                    Orders
+                </span>
+
+            </a>
+
+
+
+            <!-- SALES -->
+
+            <a
+                href="sales-trends.html"
+                class="menu-item"
+            >
+
+                💰
+
+                <span>
+                    Sales
+                </span>
+
+            </a>
+
+
+
+            <!-- MARKET TRENDS -->
+
+            <a
+                href="sales-trends.html"
+                class="menu-item"
+            >
+
+                📈
+
+                <span>
+                    Market Trends
+                </span>
+
+            </a>
+
+
+
+            <!-- PROFILE -->
+
+            <a
+                href="farmer-profile.html"
+                class="menu-item"
+            >
+
+                👤
+
+                <span>
+                    Profile
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- ==========================================
+             LOGOUT
+             ========================================== -->
+
+        <div class="logout">
+
+
+            <a
+                href="#"
+                class="menu-item"
+                onclick="logoutFarmer(event)"
+            >
+
+                🚪
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+         ========================================== -->
+
+    <main class="main-content">
+
+
+
+        <!-- ==========================================
+             HEADER
+             ========================================== -->
+
+        <header class="dashboard-header">
+
+
+            <div>
+
+
+                <h1>
+                    Farmer Dashboard
+                </h1>
+
+
+                <p id="welcomeMessage">
+
+                    Welcome to FarmConnect 👋
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- FARMER PROFILE HEADER -->
+
+            <div class="farmer-profile">
+
+
+                <div class="profile-icon">
+
+                    👨‍🌾
+
+                </div>
+
+
+
+                <div>
+
+
+                    <strong id="farmerName">
+
+                        Farmer
+
+                    </strong>
+
+
+                    <small>
+
+                        Farmer
+
+                    </small>
+
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- ==========================================
+             STATISTICS
+             ========================================== -->
+
+        <section class="stats-grid">
+
+
+
+            <!-- PRODUCTS -->
+
+            <div class="stat-card">
+
+
+                <div class="stat-icon">
+
+                    📦
+
+                </div>
+
+
+
+                <div>
+
+
+                    <p>
+
+                        My Products
+
+                    </p>
+
+
+                    <h2 id="productCount">
+
+                        0
+
+                    </h2>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ORDERS -->
+
+            <div class="stat-card">
+
+
+                <div class="stat-icon">
+
+                    🛒
+
+                </div>
+
+
+
+                <div>
+
+
+                    <p>
+
+                        Orders
+
+                    </p>
+
+
+                    <h2 id="orderCount">
+
+                        0
+
+                    </h2>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- SALES -->
+
+            <div class="stat-card">
+
+
+                <div class="stat-icon">
+
+                    💰
+
+                </div>
+
+
+
+                <div>
+
+
+                    <p>
+
+                        Total Sales
+
+                    </p>
+
+
+                    <h2 id="totalSales">
+
+                        ₹0
+
+                    </h2>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- CUSTOMERS -->
+
+            <div class="stat-card">
+
+
+                <div class="stat-icon">
+
+                    👥
+
+                </div>
+
+
+
+                <div>
+
+
+                    <p>
+
+                        Customers
+
+                    </p>
+
+
+                    <h2 id="customerCount">
+
+                        0
+
+                    </h2>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             PRODUCTS + PROFILE
+             ========================================== -->
+
+        <section class="dashboard-grid">
+
+
+
+            <!-- RECENT PRODUCTS -->
+
+            <div class="dashboard-card">
+
+
+                <div class="card-header">
+
+
+                    <h2>
+
+                        My Products
+
+                    </h2>
+
+
+
+                    <a
+                        href="products.html"
+                    >
+
+                        View All
+
+                    </a>
+
+
+                </div>
+
+
+
+                <div
+                    id="recentProducts"
+                >
+
+
+                    <p class="empty-message">
+
+                        You haven't added any products yet.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FARMER INFORMATION -->
+
+            <div class="dashboard-card">
+
+
+                <div class="card-header">
+
+
+                    <h2>
+
+                        My Farm
+
+                    </h2>
+
+
+                </div>
+
+
+
+                <div class="farm-information">
+
+
+                    <!-- FARMER -->
+
+                    <p>
+
+
+                        <strong>
+
+                            Farmer:
+
+                        </strong>
+
+
+                        <span id="profileName">
+
+                            Not added
+
+                        </span>
+
+
+                    </p>
+
+
+
+                    <!-- FARM -->
+
+                    <p>
+
+
+                        <strong>
+
+                            Farm:
+
+                        </strong>
+
+
+                        <span id="farmName">
+
+                            Not added
+
+                        </span>
+
+
+                    </p>
+
+
+
+                    <!-- LOCATION -->
+
+                    <p>
+
+
+                        <strong>
+
+                            Location:
+
+                        </strong>
+
+
+                        <span id="farmLocation">
+
+                            Not added
+
+                        </span>
+
+
+                    </p>
+
+
+
+                    <!-- EDIT PROFILE -->
+
+                    <button
+                        class="profile-button"
+                        onclick="editProfile()"
+                    >
+
+                        👤 Add / Edit Profile
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             QUICK ACTIONS
+             ========================================== -->
+
+        <section class="quick-section">
+
+
+            <h2>
+
+                Quick Actions
+
+            </h2>
+
+
+
+            <div class="quick-actions">
+
+
+
+                <!-- ADD PRODUCT -->
+
+                <button
+                    onclick="goToAddProduct()"
+                >
+
+                    ➕
+
+
+                    <span>
+
+                        Add Product
+
+                    </span>
+
+
+                </button>
+
+
+
+                <!-- MY PRODUCTS -->
+
+                <button
+                    onclick="goToProducts()"
+                >
+
+                    📦
+
+
+                    <span>
+
+                        My Products
+
+                    </span>
+
+
+                </button>
+
+
+
+                <!-- ORDERS -->
+
+                <button
+                    onclick="goToOrders()"
+                >
+
+                    🛒
+
+
+                    <span>
+
+                        Orders
+
+                    </span>
+
+
+                </button>
+
+
+
+                <!-- MARKET TRENDS -->
+
+                <button
+                    onclick="goToSalesTrends()"
+                >
+
+                    📈
+
+
+                    <span>
+
+                        Market Trends
+
+                    </span>
+
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ==========================================
+         DASHBOARD JAVASCRIPT
+         ========================================== -->
+
+    <script
+        src="../../dashboard.js"
+    ></script>
+
+
+
+    <!-- ==========================================
+         FARMER LOGIN / LOGOUT
+         ========================================== -->
+
+    <script>
+
+
+        // ==========================================
+        // LOGOUT FARMER
+        // ==========================================
+
+        function logoutFarmer(event) {
+
+
+            if (event) {
+
+                event.preventDefault();
+
+            }
+
+
+            const confirmLogout =
+                confirm(
+                    "Are you sure you want to logout?"
+                );
+
+
+            if (!confirmLogout) {
+
+                return;
+
+            }
+
+
+            // Remove login session
+
+            localStorage.removeItem(
+                "farmConnectFarmerLoggedIn"
+            );
+
+
+            // Go back to main page
+
+            window.location.href =
+                "../../index.html";
+
+
+        }
+
+
+
+        // ==========================================
+        // EDIT PROFILE
+        // ==========================================
+
+        function editProfile() {
+
+
+            window.location.href =
+                "farmer-profile.html";
+
+
+        }
+
+
+
+        // ==========================================
+        // ADD PRODUCT
+        // ==========================================
+
+        function goToAddProduct() {
+
+
+            window.location.href =
+                "add-product.html";
+
+
+        }
+
+
+
+        // ==========================================
+        // MY PRODUCTS
+        // ==========================================
+
+        function goToProducts() {
+
+
+            window.location.href =
+                "products.html";
+
+
+        }
+
+
+
+        // ==========================================
+        // ORDERS
+        // ==========================================
+
+        function goToOrders() {
+
+
+            window.location.href =
+                "orders.html";
+
+
+        }
+
+
+
+        // ==========================================
+        // SALES / MARKET TRENDS
+        // ==========================================
+
+        function goToSalesTrends() {
+
+
+            window.location.href =
+                "sales-trends.html";
+
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

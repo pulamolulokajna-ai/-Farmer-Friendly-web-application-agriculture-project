@@ -1,0 +1,2208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FarmConnect | Farm to Buyer</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <!-- ==========================================
+         BUYER LOGIN POPUP CSS
+         DOES NOT CHANGE EXISTING DESIGN
+    =========================================== -->
+
+    <style>
+
+        .buyer-auth-overlay {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            z-index: 9999;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+        }
+
+
+        .buyer-auth-overlay.show {
+
+            display: flex;
+
+        }
+
+
+        .buyer-auth-box {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.25);
+
+            position: relative;
+
+            animation:
+                buyerAuthOpen 0.25s ease;
+
+        }
+
+
+        @keyframes buyerAuthOpen {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(20px)
+                    scale(0.96);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        .buyer-auth-close {
+
+            position: absolute;
+
+            top: 15px;
+
+            right: 18px;
+
+            width: 35px;
+
+            height: 35px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #f2f2f2;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+        }
+
+
+        .buyer-auth-logo {
+
+            text-align: center;
+
+            font-size: 40px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .buyer-auth-title {
+
+            text-align: center;
+
+            margin: 0;
+
+            color: #294d20;
+
+        }
+
+
+        .buyer-auth-subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            margin: 8px 0 25px;
+
+            font-size: 14px;
+
+        }
+
+
+        .buyer-auth-tabs {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .buyer-auth-tab {
+
+            flex: 1;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #f1f1f1;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+        }
+
+
+        .buyer-auth-tab.active {
+
+            background: #5c8d35;
+
+            color: white;
+
+        }
+
+
+        .buyer-auth-form {
+
+            display: none;
+
+        }
+
+
+        .buyer-auth-form.active {
+
+            display: block;
+
+        }
+
+
+        .buyer-auth-field {
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .buyer-auth-field label {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        .buyer-auth-field input {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 12px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            outline: none;
+
+        }
+
+
+        .buyer-auth-field input:focus {
+
+            border-color: #5c8d35;
+
+        }
+
+
+        .buyer-auth-submit {
+
+            width: 100%;
+
+            border: none;
+
+            background: #5c8d35;
+
+            color: white;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            font-size: 15px;
+
+            margin-top: 5px;
+
+        }
+
+
+        .buyer-auth-submit:hover {
+
+            opacity: 0.9;
+
+        }
+
+
+        .buyer-auth-message {
+
+            display: none;
+
+            padding: 10px;
+
+            margin-bottom: 15px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            text-align: center;
+
+        }
+
+
+        .buyer-auth-message.success {
+
+            display: block;
+
+            background: #eaf6e2;
+
+            color: #397323;
+
+        }
+
+
+        .buyer-auth-message.error {
+
+            display: block;
+
+            background: #fdeaea;
+
+            color: #b42323;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+
+    <header class="navbar">
+
+
+        <div class="logo">
+            🌾 FarmConnect
+        </div>
+
+
+        <nav class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="#products">
+                Products
+            </a>
+
+            <a href="#farmers">
+                Farmers
+            </a>
+
+            <a href="#market">
+                Market
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+
+            <a
+                href="pages/farmer/dashboard.html"
+                class="nav-farmer-btn"
+            >
+                👨‍🌾 Farmer
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-buyer-btn"
+                onclick="openBuyerAuth(event)"
+            >
+                🛒 Buyer
+            </a>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="hero">
+
+
+        <div class="hero-content">
+
+
+            <span class="hero-badge">
+                🌱 Fresh • Fair • Direct
+            </span>
+
+
+            <h1>
+
+                From Farm
+
+                <span>
+                    Directly to You.
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                FarmConnect brings farmers and buyers together.
+                Farmers can sell their products directly, while
+                buyers can discover fresh agricultural products
+                at fair prices.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+
+                <a
+                    href="#"
+                    class="primary-btn"
+                    onclick="openBuyerAuth(event)"
+                >
+                    🛒 Explore Products
+                </a>
+
+
+                <a
+                    href="pages/farmer/dashboard.html"
+                    class="secondary-btn"
+                >
+                    👨‍🌾 Sell Your Products
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="hero-visual">
+
+
+            <div class="hero-circle">
+                🌾
+            </div>
+
+
+            <div class="floating-item item-one">
+                🍅
+            </div>
+
+
+            <div class="floating-item item-two">
+                🥕
+            </div>
+
+
+            <div class="floating-item item-three">
+                🥭
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         USER TYPE
+    ===================================================== -->
+
+    <section class="user-section">
+
+
+        <div class="section-heading">
+
+            <span>
+                GET STARTED
+            </span>
+
+            <h2>
+                What would you like to do?
+            </h2>
+
+            <p>
+                Choose your role to enter FarmConnect.
+            </p>
+
+        </div>
+
+
+        <div class="user-cards">
+
+
+            <!-- FARMER -->
+
+            <div class="user-card farmer-card">
+
+
+                <div class="user-icon">
+                    👨‍🌾
+                </div>
+
+
+                <h3>
+                    I'm a Farmer
+                </h3>
+
+
+                <p>
+
+                    List your agricultural products,
+                    manage your products and connect
+                    directly with buyers.
+
+                </p>
+
+
+                <ul>
+
+                    <li>
+                        ✓ Add agricultural products
+                    </li>
+
+                    <li>
+                        ✓ Manage your products
+                    </li>
+
+                    <li>
+                        ✓ View sales information
+                    </li>
+
+                    <li>
+                        ✓ Reach more buyers
+                    </li>
+
+                </ul>
+
+
+                <a
+                    href="pages/farmer/dashboard.html"
+                    class="user-btn farmer-btn"
+                >
+                    Open Farmer Dashboard →
+                </a>
+
+
+            </div>
+
+
+
+            <!-- BUYER -->
+
+            <div class="user-card buyer-card">
+
+
+                <div class="user-icon">
+                    🛒
+                </div>
+
+
+                <h3>
+                    I'm a Buyer
+                </h3>
+
+
+                <p>
+
+                    Discover fresh agricultural products
+                    directly from farmers and add them
+                    to your cart.
+
+                </p>
+
+
+                <ul>
+
+                    <li>
+                        ✓ Browse farm products
+                    </li>
+
+                    <li>
+                        ✓ Search products
+                    </li>
+
+                    <li>
+                        ✓ Add products to cart
+                    </li>
+
+                    <li>
+                        ✓ Manage your orders
+                    </li>
+
+                </ul>
+
+
+                <a
+                    href="#"
+                    class="user-btn buyer-btn"
+                    onclick="openBuyerAuth(event)"
+                >
+                    Open Buyer Dashboard →
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FEATURES
+    ===================================================== -->
+
+    <section
+        class="features"
+        id="about"
+    >
+
+
+        <div class="section-heading">
+
+            <span>
+                WHY FARMCONNECT?
+            </span>
+
+            <h2>
+                A Better Way to Connect
+            </h2>
+
+            <p>
+                Making agricultural trade simple and direct.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Direct Connection
+                </h3>
+
+                <p>
+                    Connect farmers and buyers directly
+                    without unnecessary middlemen.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    💰
+                </div>
+
+                <h3>
+                    Fair Pricing
+                </h3>
+
+                <p>
+                    Farmers can list their own prices
+                    and buyers can compare products.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Market Insights
+                </h3>
+
+                <p>
+                    View agricultural market information
+                    and make better buying decisions.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PRODUCTS
+    ===================================================== -->
+
+    <section
+        class="products-section"
+        id="products"
+    >
+
+
+        <div class="section-heading">
+
+            <span>
+                FARM FRESH
+            </span>
+
+            <h2>
+                Popular Products
+            </h2>
+
+            <p>
+                Fresh agricultural products from our farmers.
+            </p>
+
+        </div>
+
+
+        <div
+            class="product-grid"
+            id="homeProducts"
+        >
+
+
+            <div class="product-card">
+
+
+                <div class="product-image">
+                    🍅
+                </div>
+
+
+                <div class="product-info">
+
+
+                    <span>
+                        Vegetables
+                    </span>
+
+
+                    <h3>
+                        Fresh Tomatoes
+                    </h3>
+
+
+                    <p>
+                        Fresh farm-grown tomatoes.
+                    </p>
+
+
+                    <div class="product-bottom">
+
+
+                        <strong>
+                            ₹35/kg
+                        </strong>
+
+
+                        <a
+                            href="#"
+                            onclick="openBuyerAuth(event)"
+                        >
+                            View →
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="product-card">
+
+
+                <div class="product-image">
+                    🥭
+                </div>
+
+
+                <div class="product-info">
+
+
+                    <span>
+                        Fruits
+                    </span>
+
+
+                    <h3>
+                        Fresh Mangoes
+                    </h3>
+
+
+                    <p>
+                        Naturally grown seasonal mangoes.
+                    </p>
+
+
+                    <div class="product-bottom">
+
+
+                        <strong>
+                            ₹80/kg
+                        </strong>
+
+
+                        <a
+                            href="#"
+                            onclick="openBuyerAuth(event)"
+                        >
+                            View →
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="product-card">
+
+
+                <div class="product-image">
+                    🌾
+                </div>
+
+
+                <div class="product-info">
+
+
+                    <span>
+                        Grains
+                    </span>
+
+
+                    <h3>
+                        Premium Rice
+                    </h3>
+
+
+                    <p>
+                        Quality rice directly from farmers.
+                    </p>
+
+
+                    <div class="product-bottom">
+
+
+                        <strong>
+                            ₹60/kg
+                        </strong>
+
+
+                        <a
+                            href="#"
+                            onclick="openBuyerAuth(event)"
+                        >
+                            View →
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="center-button">
+
+
+            <a
+                href="#"
+                class="primary-btn"
+                onclick="openBuyerAuth(event)"
+            >
+                🛍️ Browse All Products
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FARMER SECTION
+    ===================================================== -->
+
+    <section
+        class="farmer-section"
+        id="farmers"
+    >
+
+
+        <div class="farmer-content">
+
+
+            <span class="hero-badge">
+                👨‍🌾 FOR FARMERS
+            </span>
+
+
+            <h2>
+                Sell Your Products
+                Directly to Buyers
+            </h2>
+
+
+            <p>
+                FarmConnect gives farmers a simple way to
+                list agricultural products and reach buyers
+                directly.
+            </p>
+
+
+            <div class="farmer-buttons">
+
+
+                <a
+                    href="pages/farmer/dashboard.html"
+                    class="primary-btn"
+                >
+                    👨‍🌾 Open Farmer Dashboard
+                </a>
+
+
+                <a
+                    href="pages/farmer/add-product.html"
+                    class="secondary-btn"
+                >
+                    ➕ Add Your Product
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="farmer-visual">
+            👨‍🌾
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         BUYER SECTION
+    ===================================================== -->
+
+    <section class="buyer-home-section">
+
+
+        <div class="buyer-home-visual">
+            🛒
+        </div>
+
+
+        <div class="buyer-home-content">
+
+
+            <span class="hero-badge">
+                🛒 FOR BUYERS
+            </span>
+
+
+            <h2>
+                Discover Fresh Products
+                From Local Farmers
+            </h2>
+
+
+            <p>
+                Browse agricultural products, search by
+                category, add products to your cart and
+                connect with farmers.
+            </p>
+
+
+            <a
+                href="#"
+                class="primary-btn"
+                onclick="openBuyerAuth(event)"
+            >
+                🛍️ Start Shopping
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+    ===================================================== -->
+
+    <section class="how-it-works">
+
+
+        <div class="section-heading">
+
+            <span>
+                SIMPLE PROCESS
+            </span>
+
+            <h2>
+                How FarmConnect Works
+            </h2>
+
+        </div>
+
+
+        <div class="steps">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div class="step-icon">
+                    👨‍🌾
+                </div>
+
+                <h3>
+                    Farmer Lists Product
+                </h3>
+
+                <p>
+                    Farmers add their agricultural
+                    products and prices.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div class="step-icon">
+                    🔍
+                </div>
+
+                <h3>
+                    Buyer Discovers
+                </h3>
+
+                <p>
+                    Buyers browse and search for
+                    products they need.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div class="step-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Add to Cart
+                </h3>
+
+                <p>
+                    Buyers can add products to their
+                    shopping cart.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <div class="step-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Connect Directly
+                </h3>
+
+                <p>
+                    Farmers and buyers can interact
+                    through the marketplace.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MARKET
+    ===================================================== -->
+
+    <section
+        class="market-section"
+        id="market"
+    >
+
+
+        <div class="market-content">
+
+
+            <span>
+                📊 MARKET
+            </span>
+
+
+            <h2>
+                Agricultural Market Overview
+            </h2>
+
+
+            <p>
+                Explore product categories and discover
+                agricultural products available on
+                FarmConnect.
+            </p>
+
+
+        </div>
+
+
+        <div class="market-cards">
+
+
+            <div class="market-card">
+
+                <span>
+                    🥕
+                </span>
+
+                <div>
+
+                    <small>
+                        Vegetables
+                    </small>
+
+                    <strong>
+                        Fresh
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="market-card">
+
+                <span>
+                    🥭
+                </span>
+
+                <div>
+
+                    <small>
+                        Fruits
+                    </small>
+
+                    <strong>
+                        Seasonal
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="market-card">
+
+                <span>
+                    🌾
+                </span>
+
+                <div>
+
+                    <small>
+                        Grains
+                    </small>
+
+                    <strong>
+                        Quality
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FINAL CTA
+    ===================================================== -->
+
+    <section class="final-cta">
+
+
+        <h2>
+            Ready to Get Started?
+        </h2>
+
+
+        <p>
+            Choose your role and enter the FarmConnect
+            marketplace.
+        </p>
+
+
+        <div class="hero-buttons">
+
+
+            <a
+                href="pages/farmer/dashboard.html"
+                class="secondary-btn"
+            >
+                👨‍🌾 I'm a Farmer
+            </a>
+
+
+            <a
+                href="#"
+                class="primary-btn"
+                onclick="openBuyerAuth(event)"
+            >
+                🛒 I'm a Buyer
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer class="footer">
+
+
+        <div class="footer-content">
+
+
+            <div class="footer-brand">
+
+                <div class="logo">
+                    🌾 FarmConnect
+                </div>
+
+                <p>
+                    Connecting farmers and buyers
+                    through a simple digital marketplace.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="#products">
+                    Products
+                </a>
+
+                <a href="#farmers">
+                    Farmers
+                </a>
+
+                <a href="#market">
+                    Market
+                </a>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h3>
+                    Farmer
+                </h3>
+
+                <a href="pages/farmer/dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="pages/farmer/add-product.html">
+                    Add Product
+                </a>
+
+                <a href="pages/farmer/products.html">
+                    My Products
+                </a>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h3>
+                    Buyer
+                </h3>
+
+                <a
+                    href="#"
+                    onclick="openBuyerAuth(event)"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    href="#"
+                    onclick="openBuyerAuth(event)"
+                >
+                    Browse Products
+                </a>
+
+                <a
+                    href="#"
+                    onclick="openBuyerAuth(event)"
+                >
+                    Shopping
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 FarmConnect. All rights reserved.
+            </p>
+
+            <p>
+                🌱 Farmer Friendly • Buyer Friendly
+            </p>
+
+        </div>
+
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         BUYER LOGIN / SIGNUP POPUP
+    ===================================================== -->
+
+    <div
+        id="buyerAuthOverlay"
+        class="buyer-auth-overlay"
+    >
+
+
+        <div class="buyer-auth-box">
+
+
+            <button
+                type="button"
+                class="buyer-auth-close"
+                onclick="closeBuyerAuth()"
+            >
+                ✕
+            </button>
+
+
+            <div class="buyer-auth-logo">
+                🛒
+            </div>
+
+
+            <h2 class="buyer-auth-title">
+                Buyer Account
+            </h2>
+
+
+            <p class="buyer-auth-subtitle">
+                Login or create your FarmConnect buyer account.
+            </p>
+
+
+
+            <!-- TABS -->
+
+            <div class="buyer-auth-tabs">
+
+
+                <button
+                    type="button"
+                    id="loginTab"
+                    class="buyer-auth-tab active"
+                    onclick="showBuyerLogin()"
+                >
+                    Login
+                </button>
+
+
+                <button
+                    type="button"
+                    id="signupTab"
+                    class="buyer-auth-tab"
+                    onclick="showBuyerSignup()"
+                >
+                    Create Account
+                </button>
+
+
+            </div>
+
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="buyerAuthMessage"
+                class="buyer-auth-message"
+            >
+            </div>
+
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                id="buyerLoginForm"
+                class="buyer-auth-form active"
+                onsubmit="handleBuyerLogin(event)"
+            >
+
+
+                <div class="buyer-auth-field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="buyer-auth-field">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="buyer-auth-submit"
+                >
+                    🛒 Login as Buyer
+                </button>
+
+
+            </form>
+
+
+
+            <!-- SIGNUP FORM -->
+
+            <form
+                id="buyerSignupForm"
+                class="buyer-auth-form"
+                onsubmit="handleBuyerSignup(event)"
+            >
+
+
+                <div class="buyer-auth-field">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="signupName"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="buyer-auth-field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="buyer-auth-field">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="buyer-auth-submit"
+                >
+                    ✨ Create Buyer Account
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         EXISTING JAVASCRIPT
+    ===================================================== -->
+
+    <script src="script.js"></script>
+
+
+    <!-- NEW BUYER ACCOUNT SYSTEM -->
+
+    <script src="buyer-auth.js"></script>
+
+
+
+    <!-- =====================================================
+         HOME PRODUCTS
+    ===================================================== -->
+
+    <script>
+
+        function loadHomeProducts() {
+
+            const savedProducts =
+                localStorage.getItem(
+                    "farmProducts"
+                );
+
+
+            if (!savedProducts) {
+
+                return;
+
+            }
+
+
+            const products =
+                JSON.parse(
+                    savedProducts
+                );
+
+
+            const container =
+                document.getElementById(
+                    "homeProducts"
+                );
+
+
+            if (
+                !container ||
+                products.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            container.innerHTML = "";
+
+
+            const recentProducts =
+                products
+                    .slice(-6)
+                    .reverse();
+
+
+            recentProducts.forEach(
+                function(product) {
+
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "product-card";
+
+
+                    card.innerHTML = `
+
+                        <div class="product-image">
+
+                            ${product.emoji || "🌾"}
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <span>
+                                ${product.category || "Product"}
+                            </span>
+
+
+                            <h3>
+                                ${product.name}
+                            </h3>
+
+
+                            <p>
+                                ${
+                                    product.description ||
+                                    "Fresh agricultural product from a local farmer."
+                                }
+                            </p>
+
+
+                            <div class="product-bottom">
+
+
+                                <strong>
+                                    ₹${product.price}/${product.unit || "kg"}
+                                </strong>
+
+
+                                <a
+                                    href="#"
+                                    onclick="openBuyerAuth(event)"
+                                >
+                                    View →
+                                </a>
+
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            loadHomeProducts
+        );
+
+
+
+        // ==========================================
+        // BUYER AUTH POPUP
+        // ==========================================
+
+
+        function openBuyerAuth(event) {
+
+            if (event) {
+
+                event.preventDefault();
+
+            }
+
+
+            const currentBuyer =
+                getCurrentBuyer();
+
+
+            // Already logged in
+
+            if (currentBuyer) {
+
+                window.location.href =
+                    "pages/buyer/dashboard.html";
+
+                return;
+
+            }
+
+
+            const overlay =
+                document.getElementById(
+                    "buyerAuthOverlay"
+                );
+
+
+            if (overlay) {
+
+                overlay.classList.add(
+                    "show"
+                );
+
+            }
+
+
+            showBuyerLogin();
+
+        }
+
+
+
+        function closeBuyerAuth() {
+
+            const overlay =
+                document.getElementById(
+                    "buyerAuthOverlay"
+                );
+
+
+            if (overlay) {
+
+                overlay.classList.remove(
+                    "show"
+                );
+
+            }
+
+
+            clearBuyerAuthMessage();
+
+        }
+
+
+
+        function showBuyerLogin() {
+
+            document
+                .getElementById(
+                    "loginTab"
+                )
+                .classList.add(
+                    "active"
+                );
+
+
+            document
+                .getElementById(
+                    "signupTab"
+                )
+                .classList.remove(
+                    "active"
+                );
+
+
+            document
+                .getElementById(
+                    "buyerLoginForm"
+                )
+                .classList.add(
+                    "active"
+                );
+
+
+            document
+                .getElementById(
+                    "buyerSignupForm"
+                )
+                .classList.remove(
+                    "active"
+                );
+
+
+            clearBuyerAuthMessage();
+
+        }
+
+
+
+        function showBuyerSignup() {
+
+            document
+                .getElementById(
+                    "signupTab"
+                )
+                .classList.add(
+                    "active"
+                );
+
+
+            document
+                .getElementById(
+                    "loginTab"
+                )
+                .classList.remove(
+                    "active"
+                );
+
+
+            document
+                .getElementById(
+                    "buyerSignupForm"
+                )
+                .classList.add(
+                    "active"
+                );
+
+
+            document
+                .getElementById(
+                    "buyerLoginForm"
+                )
+                .classList.remove(
+                    "active"
+                );
+
+
+            clearBuyerAuthMessage();
+
+        }
+
+
+
+        // ==========================================
+        // LOGIN
+        // ==========================================
+
+        function handleBuyerLogin(event) {
+
+            event.preventDefault();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "loginEmail"
+                    )
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "loginPassword"
+                    )
+                    .value
+                    .trim();
+
+
+            const result =
+                loginBuyer(
+                    email,
+                    password
+                );
+
+
+            if (!result.success) {
+
+                showBuyerAuthMessage(
+                    result.message,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            showBuyerAuthMessage(
+                "Login successful! Opening Buyer Dashboard...",
+                "success"
+            );
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "pages/buyer/dashboard.html";
+
+                },
+                700
+            );
+
+        }
+
+
+
+        // ==========================================
+        // SIGNUP
+        // ==========================================
+
+        function handleBuyerSignup(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document
+                    .getElementById(
+                        "signupName"
+                    )
+                    .value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "signupEmail"
+                    )
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "signupPassword"
+                    )
+                    .value
+                    .trim();
+
+
+            const result =
+                createBuyerAccount(
+                    name,
+                    email,
+                    password
+                );
+
+
+            if (!result.success) {
+
+                showBuyerAuthMessage(
+                    result.message,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            // Automatically login after signup
+
+            const loginResult =
+                loginBuyer(
+                    email,
+                    password
+                );
+
+
+            if (loginResult.success) {
+
+                showBuyerAuthMessage(
+                    "Account created successfully! Opening Buyer Dashboard...",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "pages/buyer/dashboard.html";
+
+                    },
+                    700
+                );
+
+            }
+
+        }
+
+
+
+        // ==========================================
+        // AUTH MESSAGE
+        // ==========================================
+
+        function showBuyerAuthMessage(
+            message,
+            type
+        ) {
+
+            const element =
+                document.getElementById(
+                    "buyerAuthMessage"
+                );
+
+
+            if (!element) {
+
+                return;
+
+            }
+
+
+            element.textContent =
+                message;
+
+
+            element.className =
+                "buyer-auth-message " +
+                type;
+
+        }
+
+
+
+        function clearBuyerAuthMessage() {
+
+            const element =
+                document.getElementById(
+                    "buyerAuthMessage"
+                );
+
+
+            if (!element) {
+
+                return;
+
+            }
+
+
+            element.textContent =
+                "";
+
+
+            element.className =
+                "buyer-auth-message";
+
+        }
+
+
+
+        // ==========================================
+        // CLOSE WHEN CLICKING OUTSIDE
+        // ==========================================
+
+        document.addEventListener(
+            "click",
+            function(event) {
+
+                const overlay =
+                    document.getElementById(
+                        "buyerAuthOverlay"
+                    );
+
+
+                if (
+                    overlay &&
+                    event.target === overlay
+                ) {
+
+                    closeBuyerAuth();
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Favorites | FarmConnect</title>
+
+    <link
+        rel="stylesheet"
+        href="../../buyer.css"
+    >
+
+    <style>
+
+        /* ==========================================
+           FAVORITES PAGE
+        ========================================== */
+
+        .favorites-page {
+            padding: 30px;
+        }
+
+
+        .favorites-header {
+            margin-bottom: 25px;
+        }
+
+
+        .favorites-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 30px;
+        }
+
+
+        .favorites-header p {
+            margin: 0;
+            color: #777;
+        }
+
+
+        /* ==========================================
+           FAVORITES GRID
+        ========================================== */
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+
+        /* ==========================================
+           FAVORITE CARD
+        ========================================== */
+
+        .favorite-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eeeeee;
+            transition: 0.2s ease;
+        }
+
+
+        .favorite-card:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 7px 20px rgba(0, 0, 0, 0.12);
+        }
+
+
+        .favorite-card-icon {
+            width: 75px;
+            height: 75px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            background: #f4f8ed;
+            margin-bottom: 15px;
+        }
+
+
+        .favorite-card h2 {
+            margin: 0 0 7px 0;
+            font-size: 21px;
+        }
+
+
+        .favorite-category {
+            margin: 0 0 15px 0;
+            color: #777;
+            font-size: 14px;
+        }
+
+
+        .favorite-details {
+            margin-bottom: 15px;
+        }
+
+
+        .favorite-details p {
+            margin: 7px 0;
+            font-size: 14px;
+        }
+
+
+        .favorite-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+
+        .favorite-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+
+        .favorite-actions button {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        .remove-favorite-button {
+            background: #ffe9e9;
+            color: #d33;
+        }
+
+
+        .add-cart-button {
+            background: #e9f5df;
+            color: #3f7d20;
+        }
+
+
+        /* ==========================================
+           EMPTY FAVORITES
+        ========================================== */
+
+        .favorites-empty {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 55px 25px;
+            text-align: center;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .favorites-empty-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+
+        .favorites-empty h2 {
+            margin: 0 0 10px 0;
+        }
+
+
+        .favorites-empty p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+
+        .browse-products-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #5c8d35;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+
+        /* ==========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media (max-width: 768px) {
+
+            .favorites-page {
+                padding: 20px;
+            }
+
+
+            .favorites-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="buyer-sidebar">
+
+        <div class="buyer-logo">
+
+            <div class="buyer-logo-icon">
+                🌾
+            </div>
+
+            <div>
+
+                <h2>
+                    FarmConnect
+                </h2>
+
+                <span>
+                    Buyer Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="buyer-menu">
+
+
+            <!-- DASHBOARD -->
+
+            <a href="dashboard.html">
+
+                <span class="menu-icon">
+                    🏠
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <!-- BROWSE PRODUCTS -->
+
+            <a href="products.html">
+
+                <span class="menu-icon">
+                    📦
+                </span>
+
+                <span>
+                    Browse Products
+                </span>
+
+            </a>
+
+
+            <!-- FAVORITES -->
+
+            <a
+                href="favorites.html"
+                class="active"
+            >
+
+                <span class="menu-icon">
+                    ❤️
+                </span>
+
+                <span>
+                    Favorites
+                </span>
+
+            </a>
+
+
+            <!-- CART -->
+
+            <a href="cart.html">
+
+                <span class="menu-icon">
+                    🛒
+                </span>
+
+                <span>
+                    My Cart
+                </span>
+
+            </a>
+
+
+            <!-- ORDERS -->
+
+            <a href="buyer-orders.html">
+
+                <span class="menu-icon">
+                    📋
+                </span>
+
+                <span>
+                    My Orders
+                </span>
+
+            </a>
+
+
+            <!-- PROFILE -->
+
+            <a href="profile.html">
+
+                <span class="menu-icon">
+                    👤
+                </span>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+
+        <div class="buyer-logout">
+
+            <a
+                href="../../index.html"
+                onclick="return confirmLogout()"
+            >
+
+                <span class="menu-icon">
+                    🚪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="buyer-main">
+
+
+        <!-- HEADER -->
+
+        <header class="buyer-header">
+
+            <div>
+
+                <h1>
+                    Favorites
+                </h1>
+
+                <p>
+                    Products you saved for later.
+                </p>
+
+            </div>
+
+
+            <div class="buyer-profile">
+
+                <div class="buyer-profile-icon">
+                    ❤️
+                </div>
+
+                <div>
+
+                    <strong>
+                        Buyer
+                    </strong>
+
+                    <small>
+                        Customer
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ==========================================
+             FAVORITES
+        ========================================== -->
+
+        <section class="favorites-page">
+
+
+            <div class="favorites-header">
+
+                <h1>
+                    ❤️ My Favorites
+                </h1>
+
+                <p>
+                    Your saved agricultural products.
+                </p>
+
+            </div>
+
+
+            <div
+                id="favoritesContainer"
+                class="favorites-grid"
+            >
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- BUYER JAVASCRIPT -->
+
+    <script src="../../buyer.js"></script>
+
+
+    <!-- FAVORITES JAVASCRIPT -->
+
+    <script src="../../favorites.js"></script>
+
+
+    <script>
+
+        // ==========================================
+        // LOGOUT
+        // ==========================================
+
+        function confirmLogout() {
+
+            return confirm(
+                "Are you sure you want to logout?"
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Buyer Dashboard | FarmConnect</title>
+
+    <link
+        rel="stylesheet"
+        href="../../buyer.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="buyer-sidebar">
+
+
+        <div class="buyer-logo">
+
+            <div class="buyer-logo-icon">
+                🌾
+            </div>
+
+            <div>
+
+                <h2>
+                    FarmConnect
+                </h2>
+
+                <span>
+                    Buyer Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <nav class="buyer-menu">
+
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="dashboard.html"
+                class="active"
+            >
+
+                <span class="menu-icon">
+                    🏠
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- BROWSE PRODUCTS -->
+
+            <a href="products.html">
+
+                <span class="menu-icon">
+                    📦
+                </span>
+
+                <span>
+                    Browse Products
+                </span>
+
+            </a>
+
+
+
+            <!-- FAVORITES -->
+
+            <a href="favorites.html">
+
+                <span class="menu-icon">
+                    ❤️
+                </span>
+
+                <span>
+                    Favorites
+                </span>
+
+            </a>
+
+
+
+            <!-- CART -->
+
+            <a href="cart.html">
+
+                <span class="menu-icon">
+                    🛒
+                </span>
+
+                <span>
+                    My Cart
+                </span>
+
+            </a>
+
+
+
+            <!-- ORDERS -->
+
+            <a href="buyer-orders.html">
+
+                <span class="menu-icon">
+                    📋
+                </span>
+
+                <span>
+                    My Orders
+                </span>
+
+            </a>
+
+
+
+            <!-- PROFILE -->
+
+            <a href="profile.html">
+
+                <span class="menu-icon">
+                    👤
+                </span>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- LOGOUT -->
+
+        <div class="buyer-logout">
+
+            <a
+                href="../../index.html"
+                onclick="return handleBuyerLogout()"
+            >
+
+                <span class="menu-icon">
+                    🚪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="buyer-main">
+
+
+        <!-- HEADER -->
+
+        <header class="buyer-header">
+
+
+            <div>
+
+                <h1>
+                    Buyer Dashboard
+                </h1>
+
+                <p>
+                    Discover fresh products directly from farmers.
+                </p>
+
+            </div>
+
+
+
+            <div class="buyer-profile">
+
+
+                <div class="buyer-profile-icon">
+                    🛒
+                </div>
+
+
+                <div>
+
+                    <strong id="buyerHeaderName">
+                        Buyer
+                    </strong>
+
+                    <small>
+                        Customer
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- ================= WELCOME ================= -->
+
+        <section class="buyer-welcome">
+
+
+            <div>
+
+
+                <span class="welcome-label">
+                    🌱 Farm Fresh Marketplace
+                </span>
+
+
+                <h2>
+
+                    Fresh from the farm,
+                    directly to you.
+
+                </h2>
+
+
+                <p>
+
+                    Discover quality agricultural products
+                    from local farmers at fair prices.
+
+                </p>
+
+
+                <button
+                    class="explore-button"
+                    onclick="scrollToProducts()"
+                >
+
+                    🛍️ Explore Products
+
+                </button>
+
+
+            </div>
+
+
+
+            <div class="welcome-illustration">
+
+                🌾 🥕 🍅
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="buyer-stats">
+
+
+            <div class="stat-card">
+
+
+                <div class="stat-icon">
+                    🌱
+                </div>
+
+
+                <div>
+
+                    <p>
+                        Products Available
+                    </p>
+
+                    <h2 id="availableProducts">
+                        0
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+
+                <div class="stat-icon">
+                    🛒
+                </div>
+
+
+                <div>
+
+                    <p>
+                        Cart Items
+                    </p>
+
+                    <h2 id="cartCount">
+                        0
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+
+                <div class="stat-icon">
+                    📦
+                </div>
+
+
+                <div>
+
+                    <p>
+                        My Orders
+                    </p>
+
+                    <h2 id="orderCount">
+                        0
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+
+                <div class="stat-icon">
+                    ❤️
+                </div>
+
+
+                <div>
+
+                    <p>
+                        Favorites
+                    </p>
+
+                    <h2 id="favoriteCount">
+                        0
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= SEARCH ================= -->
+
+        <section class="search-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <h2>
+                        Find Agricultural Products
+                    </h2>
+
+                    <p>
+                        Search for fresh products from farmers.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="search-box">
+
+
+                <span>
+                    🔍
+                </span>
+
+
+                <input
+                    type="text"
+                    id="productSearch"
+                    placeholder="Search tomatoes, rice, mangoes..."
+                    oninput="searchProducts()"
+                >
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= CATEGORIES ================= -->
+
+        <section class="category-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <h2>
+                        Shop by Category
+                    </h2>
+
+                    <p>
+                        Choose what you are looking for.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="category-grid">
+
+
+                <button
+                    class="category-card"
+                    onclick="filterCategory('Vegetables')"
+                >
+
+                    <span>
+                        🥕
+                    </span>
+
+                    <strong>
+                        Vegetables
+                    </strong>
+
+                </button>
+
+
+
+                <button
+                    class="category-card"
+                    onclick="filterCategory('Fruits')"
+                >
+
+                    <span>
+                        🥭
+                    </span>
+
+                    <strong>
+                        Fruits
+                    </strong>
+
+                </button>
+
+
+
+                <button
+                    class="category-card"
+                    onclick="filterCategory('Grains')"
+                >
+
+                    <span>
+                        🌾
+                    </span>
+
+                    <strong>
+                        Grains
+                    </strong>
+
+                </button>
+
+
+
+                <button
+                    class="category-card"
+                    onclick="filterCategory('Pulses')"
+                >
+
+                    <span>
+                        🫘
+                    </span>
+
+                    <strong>
+                        Pulses
+                    </strong>
+
+                </button>
+
+
+
+                <button
+                    class="category-card"
+                    onclick="filterCategory('Spices')"
+                >
+
+                    <span>
+                        🌶️
+                    </span>
+
+                    <strong>
+                        Spices
+                    </strong>
+
+                </button>
+
+
+
+                <button
+                    class="category-card"
+                    onclick="showAllProducts()"
+                >
+
+                    <span>
+                        📦
+                    </span>
+
+                    <strong>
+                        All Products
+                    </strong>
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= PRODUCTS ================= -->
+
+        <section
+            class="products-section"
+            id="products"
+        >
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <h2>
+                        Fresh Products
+                    </h2>
+
+                    <p>
+                        Products recently added by farmers.
+                    </p>
+
+                </div>
+
+
+
+                <button
+                    class="view-all-button"
+                    onclick="showAllProducts()"
+                >
+
+                    View All
+
+                </button>
+
+
+            </div>
+
+
+
+            <div
+                class="buyer-products"
+                id="buyerProducts"
+            >
+
+                <!-- Products will be added by JavaScript -->
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="quick-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+                    <p>
+                        Manage your shopping activity.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="quick-actions">
+
+
+                <!-- BROWSE -->
+
+                <button
+                    onclick="goToProducts()"
+                >
+
+                    <span>
+                        🛍️
+                    </span>
+
+                    <strong>
+                        Browse Products
+                    </strong>
+
+                </button>
+
+
+
+                <!-- CART -->
+
+                <button
+                    onclick="goToCart()"
+                >
+
+                    <span>
+                        🛒
+                    </span>
+
+                    <strong>
+                        View Cart
+                    </strong>
+
+                </button>
+
+
+
+                <!-- ORDERS -->
+
+                <button
+                    onclick="goToOrders()"
+                >
+
+                    <span>
+                        📦
+                    </span>
+
+                    <strong>
+                        My Orders
+                    </strong>
+
+                </button>
+
+
+
+                <!-- PROFILE -->
+
+                <button
+                    onclick="goToProfile()"
+                >
+
+                    <span>
+                        👤
+                    </span>
+
+                    <strong>
+                        My Profile
+                    </strong>
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="../../buyer.js"></script>
+
+    <script src="../../buyer-auth.js"></script>
+
+
+
+    <script>
+
+
+        // ==========================================
+        // CHECK LOGIN
+        // ==========================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+
+                if (
+                    typeof isBuyerLoggedIn ===
+                    "function"
+                ) {
+
+                    if (
+                        !isBuyerLoggedIn()
+                    ) {
+
+                        window.location.href =
+                            "../../index.html";
+
+                        return;
+
+                    }
+
+                }
+
+
+                // Display buyer name
+
+                if (
+                    typeof getLoggedInBuyer ===
+                    "function"
+                ) {
+
+
+                    const buyer =
+                        getLoggedInBuyer();
+
+
+                    const nameElement =
+                        document.getElementById(
+                            "buyerHeaderName"
+                        );
+
+
+                    if (
+                        buyer &&
+                        nameElement
+                    ) {
+
+                        nameElement.textContent =
+                            buyer.name || "Buyer";
+
+                    }
+
+                }
+
+
+            }
+        );
+
+
+
+        // ==========================================
+        // LOGOUT
+        // ==========================================
+
+        function handleBuyerLogout() {
+
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to logout?"
+                );
+
+
+            if (!confirmed) {
+
+                return false;
+
+            }
+
+
+            // Remove logged-in buyer
+
+            if (
+                typeof logoutBuyer ===
+                "function"
+            ) {
+
+                logoutBuyer();
+
+            }
+
+
+            return true;
+
+        }
+
+
+
+        // ==========================================
+        // BROWSE PRODUCTS
+        // ==========================================
+
+        function goToProducts() {
+
+            window.location.href =
+                "products.html";
+
+        }
+
+
+
+        // ==========================================
+        // CART
+        // ==========================================
+
+        function goToCart() {
+
+            window.location.href =
+                "cart.html";
+
+        }
+
+
+
+        // ==========================================
+        // ORDERS
+        // ==========================================
+
+        function goToOrders() {
+
+            window.location.href =
+                "buyer-orders.html";
+
+        }
+
+
+
+        // ==========================================
+        // PROFILE
+        // ==========================================
+
+        function goToProfile() {
+
+            window.location.href =
+                "profile.html";
+
+        }
+
+
+
+        // ==========================================
+        // SCROLL TO PRODUCTS
+        // ==========================================
+
+        function scrollToProducts() {
+
+
+            const products =
+                document.getElementById(
+                    "products"
+                );
+
+
+            if (products) {
+
+                products.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+
+
+
+        // ==========================================
+        // COMING SOON FUNCTION
+        // ==========================================
+
+        function showComingSoon(event) {
+
+
+            if (event) {
+
+                event.preventDefault();
+
+            }
+
+
+            alert(
+                "This section will be connected next."
+            );
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
